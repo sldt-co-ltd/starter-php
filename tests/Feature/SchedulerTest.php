@@ -24,12 +24,13 @@ class SchedulerTest extends TestCase
             $this->fail('No events found');
         }
 
-        Storage::delete('test.out');
+        $output_file = 'test.out';
+        Storage::delete($output_file);
 
         $this->artisan('schedule:run');
         $this->app[Kernel::class]->setArtisan(null);
 
-        $output = Storage::get('test.out');
+        $output = Storage::get($output_file);
 
         $this->assertStringContainsString('Not implemented', $output);
     }
